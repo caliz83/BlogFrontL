@@ -1,24 +1,28 @@
 //To create from CMD line:
-  //type: npm create vite@4.1.0
-  //name project & packet
-  //choose React
-  //choose JS (in this case)
-  //cd in project
-  //type: npm install
-  //npm run dev, type 'o' to open it, then 'q' to exit it
-  //to open in VS Code, type: code .
+//type: npm create vite@4.1.0
+//name project & packet
+//choose React
+//choose JS (in this case)
+//cd in project
+//type: npm install
+//npm run dev, type 'o' to open it, then 'q' to exit it
+//to open in VS Code, type: code .
 
-import './App.css'
-import Dashboard from './components/Dashboard';
+import "./App.css";
+import Dashboard from "./components/Dashboard";
+import { Col, Container, Row } from "react-bootstrap";
 
 function App() {
-
   return (
-    <div className="App">
-      <h1>Our Blog</h1>
-      <Dashboard />
-    </div>
-  )
+    <Container>
+      <Row>
+        <Col>
+          <h1 className="text-center">Our Blog</h1>
+        </Col>
+        <Dashboard />
+      </Row>
+    </Container>
+  );
 }
 
-export default App
+export default App;
