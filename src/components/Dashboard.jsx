@@ -1,9 +1,17 @@
-import { Button, Container, Modal, Form, Accordion, Row, Col, ListGroup } from "react-bootstrap/";
+import {
+  Button,
+  Container,
+  Modal,
+  Form,
+  Accordion,
+  Row,
+  Col,
+  ListGroup,
+} from "react-bootstrap/";
 import { useState } from "react";
 
 const Dashboard = () => {
-
-  //functions 
+  //functions
   const handleSetTitle = (e) => setBlogTitle(e.target.value);
   const handleBlogDescription = (e) => setBlogDescription(e.target.value);
   const handleTag = (e) => setBlogTags(e.target.value);
@@ -15,7 +23,7 @@ const Dashboard = () => {
   const handleShow = (e) => {
     setShow(true);
     //console.log(e.target.textContent); //when it's a form it's e.target.input; when it's text, it's e.target.textContent
-    if(e.target.textContent === "Add Blog Item"){
+    if (e.target.textContent === "Add Blog Item") {
       setEdit(false);
       setBlogTitle("");
       setBlogDescription("");
@@ -26,8 +34,8 @@ const Dashboard = () => {
       setBlogDescription("My Awesome Description");
       setBlogCategory("Fitness");
     }
-  }
-  
+  };
+
   //create our useStates to help us handle our forms
   const [blogTitle, setBlogTitle] = useState("");
   const [blogImage, setBlogImage] = useState("");
@@ -41,10 +49,8 @@ const Dashboard = () => {
       Publisher: "anonymous",
       Date: "01-13-2022",
       Text: "Developing finishing and crossing skills is an important aspect of soccer that can greatly constribute to your player.",
-      Image: 
-            "./assets/Images/3soccerballs.jpg",
-      Published: true
-      
+      Image: "./assets/Images/3soccerballs.jpg",
+      Published: true,
     },
     {
       Id: 2,
@@ -52,9 +58,8 @@ const Dashboard = () => {
       Publisher: "anonymous",
       Date: "01-14-2022",
       Text: "A strong defense is the backbone of any successful soccer team",
-      Image: 
-            "./assets/Images/3soccerballs.jpg",
-      Published: true
+      Image: "./assets/Images/3soccerballs.jpg",
+      Published: true,
     },
     {
       Id: 3,
@@ -62,9 +67,8 @@ const Dashboard = () => {
       Publisher: "anonymous",
       Date: "01-15-2022",
       Text: "Small-sided games create a fast-paced and intense environment.",
-      Image: 
-            "./assets/Images/3soccerballs.jpg",
-      Published: true
+      Image: "./assets/Images/3soccerballs.jpg",
+      Published: true,
     },
     {
       Id: 4,
@@ -72,9 +76,8 @@ const Dashboard = () => {
       Publisher: "anonymous",
       Date: "01-15-2022",
       Text: "One of the best ways to naturally bring out the competitive nature.",
-      Image: 
-            "./assets/Images/3soccerballs.jpg",
-      Published: false
+      Image: "./assets/Images/3soccerballs.jpg",
+      Published: false,
     },
     {
       Id: 5,
@@ -82,19 +85,11 @@ const Dashboard = () => {
       Publisher: "anonymous",
       Date: "01-15-2022",
       Text: "One of the challenges for youth soccer coaches is to make sure their players are always excited to come to practice.",
-      Image: 
-            "./assets/Images/3soccerballs.jpg",
-      Published: false
+      Image: "./assets/Images/3soccerballs.jpg",
+      Published: false,
     },
   ]);
 
-
-
-
-
-
-
-  
   const [show, setShow] = useState(false);
   //for the Edit function
   const [edit, setEdit] = useState(false);
@@ -108,22 +103,36 @@ const Dashboard = () => {
         <Modal show={show} onHide={handleClose}>
           <Modal.Header style={{ background: "bisque" }} closeButton>
             <Modal.Title style={{ background: "bisque" }}>
-              {edit ? "Edit" : "Add"} Blog Item  
-            </Modal.Title>  
+              {edit ? "Edit" : "Add"} Blog Item
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body style={{ background: "bisque" }}>
             <Form>
               <Form.Group className="mb-3" controlId="Title">
                 <Form.Label>Title</Form.Label>
-                <Form.Control type="text" placeholder="Enter title" value={blogTitle} onChange={handleSetTitle} />
+                <Form.Control
+                  type="text"
+                  placeholder="Enter title"
+                  value={blogTitle}
+                  onChange={handleSetTitle}
+                />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="Description">
                 <Form.Label>Description</Form.Label>
-                <Form.Control type="text" placeholder="Enter Description" value={blogDescription} onChange={handleBlogDescription}/>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Description"
+                  value={blogDescription}
+                  onChange={handleBlogDescription}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="Category">
-                <Form.Select aria-label="Default select example" value={blogCategory} onChange={handleCategory}>
+                <Form.Select
+                  aria-label="Default select example"
+                  value={blogCategory}
+                  onChange={handleCategory}
+                >
                   <option>Select Category</option>
                   <option value="Food">Food</option>
                   <option value="Fitness">Fitness</option>
@@ -133,19 +142,28 @@ const Dashboard = () => {
               </Form.Group>
               <Form.Group className="mb-3" controlId="Tags">
                 <Form.Label>Tags</Form.Label>
-                <Form.Control type="text" placeholder="Enter Tags" value={blogTags} onChange={handleTag}/>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Tags"
+                  value={blogTags}
+                  onChange={handleTag}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="Image">
                 <Form.Label>Pick an Image</Form.Label>
-                <Form.Control type="file" placeholder="Select Image From File" accept="image/png, image/jpg" value={blogImage} onChange={handleImage} />
+                <Form.Control
+                  type="file"
+                  placeholder="Select Image From File"
+                  accept="image/png, image/jpg"
+                  value={blogImage}
+                  onChange={handleImage}
+                />
               </Form.Group>
-
-            
             </Form>
           </Modal.Body>
           <Modal.Footer style={{ background: "bisque" }}>
-          <Button variant="outline-success" onClick={handleClose}>
-          {edit ? "Save Changes" : "Save"} 
+            <Button variant="outline-success" onClick={handleClose}>
+              {edit ? "Save Changes" : "Save"}
             </Button>
             <Button variant="outline-primary" onClick={handleClose}>
               {edit ? "Save Changes" : "Save"} and Publish
@@ -155,28 +173,53 @@ const Dashboard = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Button variant="outline-primary" onClick={handleShow}>Edit Blog Item</Button>{" "}
+        <Button variant="outline-primary" onClick={handleShow}>
+          Edit Blog Item
+        </Button>{" "}
         <Row>
           <Col>
-
-          <Accordion defaultActiveKey={['0']} alwaysOpen>
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Accordion Item #1</Accordion.Header>
-        <Accordion.Body style={{backgroundColor: "#f2f2f2", color: "black"}}>
-          {blogItems.map((item) => item.Published ? <ListGroup>{item.Title}</ListGroup> : null)}
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Accordion Item #2</Accordion.Header>
-        <Accordion.Body style={{backgroundColor: "#f2f2f2", color: "black"}}>
-        {blogItems.map((item) => !item.Published ? <ListGroup>{item.Title}</ListGroup> : null)}
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
-
+            <Accordion defaultActiveKey={["0", "1"]} alwaysOpen>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>Published</Accordion.Header>
+                <Accordion.Body
+                  style={{ backgroundColor: "#f2f2f2", color: "black" }}
+                >
+                  {blogItems.map((item) =>
+                    item.Published ? (
+                      <ListGroup key={item.Title}>
+                        {item.Title}
+                        <Col className="d-flex justify-content-end">
+                          <Button variant="outline-danger mx-2">Delete</Button>
+                          <Button variant="outline-info mx-2">Edit</Button>
+                          <Button variant="outline-primary mx-2">Unpublish</Button>
+                        </Col>
+                      </ListGroup>
+                    ) : null
+                  )}
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="1">
+                <Accordion.Header>Unpublished</Accordion.Header>
+                <Accordion.Body
+                  style={{ backgroundColor: "#f2f2f2", color: "black" }}
+                >
+                  {blogItems.map((item) =>
+                    !item.Published ? (
+                      <ListGroup key={item.Title}>
+                        {item.Title}
+                        <Col className="d-flex justify-content-end">
+                          <Button variant="outline-danger mx-2">Delete</Button>
+                          <Button variant="outline-info mx-2">Edit</Button>
+                          <Button variant="outline-primary mx-2">Publish</Button>
+                        </Col>
+                      </ListGroup>
+                    ) : null
+                  )}
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
           </Col>
         </Row>
-
       </Container>
     </>
   );
