@@ -9,6 +9,7 @@
 //to open in VS Code, type: code .
 
 import "./App.css";
+import BlogPage from "./components/BlogPage";
 import Dashboard from "./components/Dashboard";
 import { Col, Container, Row } from "react-bootstrap";
 
@@ -19,7 +20,8 @@ function App() {
         <Col>
           <h1 className="text-center">Our Blog</h1>
         </Col>
-        <Dashboard />
+        <BlogPage />
+        {/* <Dashboard /> */}
       </Row>
     </Container>
   );
