@@ -10,6 +10,7 @@
 
 import "./App.css";
 import BlogPage from "./components/BlogPage";
+import CreateAccount from "./components/CreateAccount";
 import Dashboard from "./components/Dashboard";
 import { Col, Container, Row } from "react-bootstrap";
 
@@ -20,7 +21,8 @@ function App() {
         <Col>
           <h1 className="text-center">Our Blog</h1>
         </Col>
-        <BlogPage />
+        <CreateAccount />
+        {/* <BlogPage /> */}
         {/* <Dashboard /> */}
       </Row>
     </Container>

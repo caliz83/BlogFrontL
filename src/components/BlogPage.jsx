@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Container, Row, Button, Form, Modal, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 const BlogPage = () => {
   const [blogItems, setBlogItems] = useState([
