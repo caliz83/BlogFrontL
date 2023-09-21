@@ -13,19 +13,32 @@ import BlogPage from "./components/BlogPage";
 import CreateAccount from "./components/CreateAccount";
 import Dashboard from "./components/Dashboard";
 import { Col, Container, Row } from "react-bootstrap";
+import Login from "./components/Login";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <Container>
-      <Row>
-        <Col>
-          <h1 className="text-center">Our Blog</h1>
-        </Col>
-        <CreateAccount />
+    <BrowserRouter>
+      <Container>
+        <Row>
+          <Col>
+            <h1 className="text-center">Our Blog</h1>
+          </Col>
+          <Navbar />
+        {/* <Login /> */}
+        {/* <CreateAccount /> */}
         {/* <BlogPage /> */}
         {/* <Dashboard /> */}
-      </Row>
-    </Container>
+        <Routes>
+          <Route path="/" element={<BlogPage />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/CreateAccount" element={<CreateAccount />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+        </Routes>
+        </Row>
+      </Container>    
+    </BrowserRouter>
   );
 }
 

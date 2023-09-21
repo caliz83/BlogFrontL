@@ -8,9 +8,23 @@ import {
   Col,
   ListGroup,
 } from "react-bootstrap/";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+
+  //checking for token to know whether to show content or not
+  let navigate = useNavigate();
+  useEffect(() => {
+    //useEffect is the first thing that fires on load
+    //put any logic we want to fire on load in here
+    //our effect will fire again if we have a change in the state in our dependency (square brackets below)    
+    if(!checkToken()){
+      //if no token, maybe they haven't logged in yet
+      navigate("/Login");
+    }
+  }, [input])
+
   //functions
   const handleSetTitle = (e) => setBlogTitle(e.target.value);
   const handleBlogDescription = (e) => setBlogDescription(e.target.value);
