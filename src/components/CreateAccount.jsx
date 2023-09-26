@@ -1,5 +1,6 @@
 import React, { useState} from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { createAccount } from '../services/DataService';
 
 
 const CreateAccount = () => {
@@ -15,6 +16,7 @@ const CreateAccount = () => {
             passwordObj: password
         }
         console.log(userData);
+        createAccount(userData); //creating the account
     }
 
   return (

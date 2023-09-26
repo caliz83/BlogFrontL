@@ -11,4 +11,25 @@ function checkToken() {
     return result;
 }
 
-export { checkToken }
+//we are going to use an async and await function to help us resolve a promise
+
+const createAccount = async (createdUser) => {
+    //from local host / user from UserController (remove the controller) / function form UserController ("AddUsers")  
+    let result = await fetch("http://localhost:5086/user/AddUsers", {
+        method: "POST",
+        headers: {
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(createdUser) //to send it in JSON format
+    });
+    if(!result.ok){
+        const message = `Error; try again ${result.status}`
+        throw new Error(message)
+    }
+
+    let data = await result.json();
+
+    console.log(data)
+}
+
+export { checkToken, createAccount }
