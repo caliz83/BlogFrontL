@@ -12,8 +12,9 @@ const CreateAccount = () => {
     const handlePassword = (e) => setPassword(e.target.value);
     const handleSubmit = () => {
         let userData = {
-            usernameObj: username,
-            passwordObj: password
+            Id: 0,
+            Username: username,
+            Password: password
         }
         console.log(userData);
         createAccount(userData); //creating the account

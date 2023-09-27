@@ -1,6 +1,7 @@
 import React, { useState} from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../services/DataService';
 
 
 const Login = () => {
@@ -12,12 +13,20 @@ const Login = () => {
 
     const handleUser = (e) => setUsername(e.target.value);
     const handlePassword = (e) => setPassword(e.target.value);
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let userData = {
-            usernameObj: username,
-            passwordObj: password
+            Username: username,
+            Password: password
         }
+
+        let token = await login(userData);
         console.log(userData);
+
+        //token.token because we are getting form inside the variable we have just assigned (line 22)
+        if(token.token != null){
+          localStorage.setItem("Token", token.token);
+          navigate("/Dashboard");
+        }
     }
 
   return (

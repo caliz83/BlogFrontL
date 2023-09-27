@@ -32,4 +32,27 @@ const createAccount = async (createdUser) => {
     console.log(data)
 }
 
-export { checkToken, createAccount }
+//async because it is awaiting a response form the server (like axios with the .then)
+const login = async (loginUser) => {
+    let result = await fetch("http://localhost:5086/user/Login", {
+        method: "POST",
+        headers: {
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(loginUser) //to send it in JSON format
+    });
+    if(!result.ok){
+        const message = `Error; try again ${result.status}`
+        throw new Error(message)
+    }
+
+    let data = await result.json();
+
+    // if(data.token != null){
+    //     localStorage.setItem("Token", data.token)
+    // } //being handled in login function now
+    console.log(data);
+    return data; //need to return something for the handleSubmit function in login to work
+}
+
+export { checkToken, createAccount, login }

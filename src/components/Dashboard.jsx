@@ -23,7 +23,7 @@ const Dashboard = () => {
       //if no token, maybe they haven't logged in yet
       navigate("/Login");
     }
-  }, [input])
+  }, [])
 
   //functions
   const handleSetTitle = (e) => setBlogTitle(e.target.value);
