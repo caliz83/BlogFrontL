@@ -1,7 +1,7 @@
 import React, { useState} from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../services/DataService';
+import { login, GetLoggedInUser } from '../services/DataService';
 
 
 const Login = () => {
@@ -25,9 +25,10 @@ const Login = () => {
         //token.token because we are getting form inside the variable we have just assigned (line 22)
         if(token.token != null){
           localStorage.setItem("Token", token.token);
+          GetLoggedInUser(username)
           navigate("/Dashboard");
         }
-    }
+    };
 
   return (
     <div>

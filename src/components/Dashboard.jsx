@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap/";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { checkToken } from "../services/DataService";
 
 const Dashboard = () => {
 
@@ -103,10 +104,43 @@ const Dashboard = () => {
       Published: false,
     },
   ]);
+  const [userId, setUserId] = useState(0);
+  const [PublisherName, setPublisherName] = useState("")
 
+  //Bools
   const [show, setShow] = useState(false);
   //for the Edit function
   const [edit, setEdit] = useState(false);
+
+  const handleSaveWithPublish = () => {
+    const Published = {
+    Id: 0,
+    UserId: 0,
+    PublisherName: '',
+    Title: blogTitle,
+    Image: blogImage,
+    Description: blogDescription,
+    Category: blogCategory,
+    Tag: blogTags,
+    Date: new Date(),
+    IsDeleted: false,
+    IsPublished: true
+  }}
+
+  const handleSaveWithUnpublish = () => {
+    const NotPublished = {
+      Id: 0,
+      UserId: 0,
+      PublisherName: '',
+      Title: '',
+      Image: '',
+      Description: '',
+      Category: '',
+      Tag: '',
+      Date: '',
+      IsDeleted: false,
+      IsPublished: true
+  }}
 
   return (
     <>
@@ -176,10 +210,10 @@ const Dashboard = () => {
             </Form>
           </Modal.Body>
           <Modal.Footer style={{ background: "bisque" }}>
-            <Button variant="outline-success" onClick={handleClose}>
+            <Button variant="outline-success" onClick={handleSaveWithPublish}>
               {edit ? "Save Changes" : "Save"}
             </Button>
-            <Button variant="outline-primary" onClick={handleClose}>
+            <Button variant="outline-primary" onClick={handleSaveWithUnpublish}>
               {edit ? "Save Changes" : "Save"} and Publish
             </Button>
             <Button variant="outline-secondary" onClick={handleClose}>

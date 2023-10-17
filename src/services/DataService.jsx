@@ -1,5 +1,7 @@
 //not a component so no need for rafce
 
+let userData = {};
+
 //create a function to help us check our local storage; if user is logged in they have a token which enables them to see content
 
 function checkToken() {
@@ -55,4 +57,14 @@ const login = async (loginUser) => {
     return data; //need to return something for the handleSubmit function in login to work
 }
 
-export { checkToken, createAccount, login }
+const GetLoggedInUser = async (username) => {
+    let result = await fetch(`http://localhost:5086/user/GetUserByUsername/${username}`);
+    userData = await result.json();
+    console.log(userData);
+}
+
+const LoggedInData = () => {
+    return userData;
+}
+
+export { checkToken, createAccount, login, GetLoggedInUser, LoggedInData }
