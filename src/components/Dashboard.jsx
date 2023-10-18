@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap/";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { checkToken } from "../services/DataService";
+import { LoggedInData, checkToken } from "../services/DataService";
 
 const Dashboard = () => {
 
@@ -24,6 +24,9 @@ const Dashboard = () => {
       //if no token, maybe they haven't logged in yet
       navigate("/Login");
     }
+
+    let userInfo = LoggedInData();
+    console.log(userInfo);
   }, [])
 
   //functions
@@ -31,7 +34,7 @@ const Dashboard = () => {
   const handleBlogDescription = (e) => setBlogDescription(e.target.value);
   const handleTag = (e) => setBlogTags(e.target.value);
   const handleCategory = (e) => setBlogCategory(e.target.value);
-  const handleImage = (e) => setBlogImage(e.target.value);
+  //const handleImage = (e) => setBlogImage(e.target.value);
   const handleClose = () => setShow(false);
 
   //when set to true, makes modal show up
@@ -57,6 +60,9 @@ const Dashboard = () => {
   const [blogDescription, setBlogDescription] = useState("");
   const [blogCategory, setBlogCategory] = useState("");
   const [blogTags, setBlogTags] = useState("");
+  const [userId, setUserId] = useState(0);
+  const [publisherName, setPublisherName] = useState("");
+
   const [blogItems, setBlogItems] = useState([
     {
       Id: 1,
@@ -104,8 +110,6 @@ const Dashboard = () => {
       Published: false,
     },
   ]);
-  const [userId, setUserId] = useState(0);
-  const [PublisherName, setPublisherName] = useState("")
 
   //Bools
   const [show, setShow] = useState(false);
@@ -113,10 +117,13 @@ const Dashboard = () => {
   const [edit, setEdit] = useState(false);
 
   const handleSaveWithPublish = () => {
+
+    let {publisherName, userId}= LoggedInData();
+
     const Published = {
     Id: 0,
-    UserId: 0,
-    PublisherName: '',
+    UserId: userId,
+    PublisherName: publisherName,
     Title: blogTitle,
     Image: blogImage,
     Description: blogDescription,
@@ -125,22 +132,38 @@ const Dashboard = () => {
     Date: new Date(),
     IsDeleted: false,
     IsPublished: true
-  }}
+  }
+  console.log(Published);
+  handleClose();
+}
 
   const handleSaveWithUnpublish = () => {
     const NotPublished = {
       Id: 0,
-      UserId: 0,
-      PublisherName: '',
-      Title: '',
-      Image: '',
-      Description: '',
-      Category: '',
-      Tag: '',
-      Date: '',
+      UserId: userId,
+      PublisherName: publisherName,
+      Title: blogTitle,
+      Image: blogImage,
+      Description: blogDescription,
+      Category: blogCategory,
+      Tag: blogTags,
+      Date: new Date(),
       IsDeleted: false,
-      IsPublished: true
-  }}
+      IsPublished: false
+  }
+  console.log(NotPublished);
+  handleClose();
+}
+
+  //handle our image
+  const handleImage = async (e) => {
+    let file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      console.log(reader.result);
+    }
+    reader.readAsDataURL(file);
+  }
 
   return (
     <>
@@ -203,17 +226,17 @@ const Dashboard = () => {
                   type="file"
                   placeholder="Select Image From File"
                   accept="image/png, image/jpg"
-                  value={blogImage}
+                  // value={blogImage}
                   onChange={handleImage}
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer style={{ background: "bisque" }}>
-            <Button variant="outline-success" onClick={handleSaveWithPublish}>
+            <Button variant="outline-success" onClick={handleSaveWithUnpublish}>
               {edit ? "Save Changes" : "Save"}
             </Button>
-            <Button variant="outline-primary" onClick={handleSaveWithUnpublish}>
+            <Button variant="outline-primary" onClick={handleSaveWithPublish}>
               {edit ? "Save Changes" : "Save"} and Publish
             </Button>
             <Button variant="outline-secondary" onClick={handleClose}>
