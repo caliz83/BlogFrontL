@@ -13,6 +13,25 @@ function checkToken() {
     return result;
 }
 
+//One function to rule them all - 'DRY CODE' -> don't repeat your code
+//anytime you find yourself copy/pasting and just changing variables (endpoints), think about doing this
+const sendData = async (endpoint, passedInData) => {
+    let result = await fetch(`http://localhost:5086/user/${endpoint}`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(passedInData)
+    });
+    if(!result.ok){
+        const message = `Error; try again ${result.status}`;
+        throw new Error(message);
+    }
+
+    let data = await result.json();
+    return data;
+}
+
 //we are going to use an async and await function to help us resolve a promise
 
 const createAccount = async (createdUser) => {
@@ -25,8 +44,8 @@ const createAccount = async (createdUser) => {
         body: JSON.stringify(createdUser) //to send it in JSON format
     });
     if(!result.ok){
-        const message = `Error; try again ${result.status}`
-        throw new Error(message)
+        const message = `Error; try again ${result.status}`;
+        throw new Error(message);
     }
 
     let data = await result.json();
@@ -67,4 +86,34 @@ const LoggedInData = () => {
     return userData;
 }
 
-export { checkToken, createAccount, login, GetLoggedInUser, LoggedInData }
+const AddBlogItems = async (blogItems) => {
+    let result = await fetch('http://localhost:5086/blog/AddBlogItems', {
+        method: "POST",
+        headers: {
+            "Content-Type": 'application/json'
+    },
+    body: JSON.stringify(blogItems)
+});
+if(!result.ok){
+    const message = `Error; try again ${result.status}`;
+    throw new Error(message);
+}
+let data = await result.json();
+
+return data;
+};
+
+const GetBlogItems = async () => {
+    let result = await fetch("http://localhost:5086/blog/GetBlogItem");
+    let data = await result.json();
+    return data;
+}
+
+const GetBlogItemsByUserId = async (UserId) => {
+    let result = await fetch(`http://localhost:5086/blog/GetItemsByUserId/${UserId}`);
+    let data = await result.json();
+    return data;    
+}
+
+
+export { checkToken, createAccount, login, GetLoggedInUser, LoggedInData, AddBlogItems, sendData, GetBlogItems, GetBlogItemsByUserId }

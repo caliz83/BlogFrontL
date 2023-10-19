@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap/";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoggedInData, checkToken } from "../services/DataService";
+import { AddBlogItems, GetBlogItems, GetBlogItemsByUserId, LoggedInData, checkToken } from "../services/DataService";
 
 const Dashboard = () => {
 
@@ -64,51 +64,51 @@ const Dashboard = () => {
   const [publisherName, setPublisherName] = useState("");
 
   const [blogItems, setBlogItems] = useState([
-    {
-      Id: 1,
-      Title: "Top Finishing and Crossing Drills",
-      Publisher: "anonymous",
-      Date: "01-13-2022",
-      Text: "Developing finishing and crossing skills is an important aspect of soccer that can greatly constribute to your player.",
-      Image: "./assets/Images/3soccerballs.jpg",
-      Published: true,
-    },
-    {
-      Id: 2,
-      Title: "6 Soccer Drills to Work on Defense",
-      Publisher: "anonymous",
-      Date: "01-14-2022",
-      Text: "A strong defense is the backbone of any successful soccer team",
-      Image: "./assets/Images/3soccerballs.jpg",
-      Published: true,
-    },
-    {
-      Id: 3,
-      Title: "5 Small Side Games",
-      Publisher: "anonymous",
-      Date: "01-15-2022",
-      Text: "Small-sided games create a fast-paced and intense environment.",
-      Image: "./assets/Images/3soccerballs.jpg",
-      Published: true,
-    },
-    {
-      Id: 4,
-      Title: "5 Fun 1 V 1 Youth Soccer Activites",
-      Publisher: "anonymous",
-      Date: "01-15-2022",
-      Text: "One of the best ways to naturally bring out the competitive nature.",
-      Image: "./assets/Images/3soccerballs.jpg",
-      Published: false,
-    },
-    {
-      Id: 5,
-      Title: "5 Fun warm up soccer drills",
-      Publisher: "anonymous",
-      Date: "01-15-2022",
-      Text: "One of the challenges for youth soccer coaches is to make sure their players are always excited to come to practice.",
-      Image: "./assets/Images/3soccerballs.jpg",
-      Published: false,
-    },
+    // {
+    //   Id: 1,
+    //   Title: "Top Finishing and Crossing Drills",
+    //   Publisher: "anonymous",
+    //   Date: "01-13-2022",
+    //   Text: "Developing finishing and crossing skills is an important aspect of soccer that can greatly constribute to your player.",
+    //   Image: "./assets/Images/3soccerballs.jpg",
+    //   Published: true,
+    // },
+    // {
+    //   Id: 2,
+    //   Title: "6 Soccer Drills to Work on Defense",
+    //   Publisher: "anonymous",
+    //   Date: "01-14-2022",
+    //   Text: "A strong defense is the backbone of any successful soccer team",
+    //   Image: "./assets/Images/3soccerballs.jpg",
+    //   Published: true,
+    // },
+    // {
+    //   Id: 3,
+    //   Title: "5 Small Side Games",
+    //   Publisher: "anonymous",
+    //   Date: "01-15-2022",
+    //   Text: "Small-sided games create a fast-paced and intense environment.",
+    //   Image: "./assets/Images/3soccerballs.jpg",
+    //   Published: true,
+    // },
+    // {
+    //   Id: 4,
+    //   Title: "5 Fun 1 V 1 Youth Soccer Activites",
+    //   Publisher: "anonymous",
+    //   Date: "01-15-2022",
+    //   Text: "One of the best ways to naturally bring out the competitive nature.",
+    //   Image: "./assets/Images/3soccerballs.jpg",
+    //   Published: false,
+    // },
+    // {
+    //   Id: 5,
+    //   Title: "5 Fun warm up soccer drills",
+    //   Publisher: "anonymous",
+    //   Date: "01-15-2022",
+    //   Text: "One of the challenges for youth soccer coaches is to make sure their players are always excited to come to practice.",
+    //   Image: "./assets/Images/3soccerballs.jpg",
+    //   Published: false,
+    // },
   ]);
 
   //Bools
@@ -116,9 +116,9 @@ const Dashboard = () => {
   //for the Edit function
   const [edit, setEdit] = useState(false);
 
-  const handleSaveWithPublish = () => {
+  const handleSaveWithPublish = async () => {
 
-    let {publisherName, userId}= LoggedInData();
+    let {publisherName, userId} = LoggedInData();
 
     const Published = {
     Id: 0,
@@ -135,9 +135,19 @@ const Dashboard = () => {
   }
   console.log(Published);
   handleClose();
+  let result = await AddBlogItems(Published);
+
+  if(result){
+    let userBlogItems = await GetBlogItemsByUserId(userId);
+    setBlogItems(userBlogItems);
+    console.log(userBlogItems, "yes, it works!");
+  }
 }
 
-  const handleSaveWithUnpublish = () => {
+  const handleSaveWithUnpublish = async () => {
+
+    let {publischerName, userId} = LoggedInData();
+
     const NotPublished = {
       Id: 0,
       UserId: userId,
@@ -153,6 +163,13 @@ const Dashboard = () => {
   }
   console.log(NotPublished);
   handleClose();
+  let result = await AddBlogItems(NotPublished);
+
+  if(result){
+    let userBlogItems = await GetBlogItemsByUserId(userId);
+    setBlogItems(userBlogItems);
+    console.log(userBlogItems, "yes, it works!");
+  }
 }
 
   //handle our image
@@ -255,10 +272,9 @@ const Dashboard = () => {
                 <Accordion.Body
                   style={{ backgroundColor: "#f2f2f2", color: "black" }}
                 >
-                  {blogItems.map((item) =>
-                    item.Published ? (
-                      <ListGroup key={item.Title}>
-                        {item.Title}
+                  {blogItems.map((item, i) =>
+                    item.isPublished ? (
+                      <ListGroup key={i}>{item.title}
                         <Col className="d-flex justify-content-end">
                           <Button variant="outline-danger mx-2">Delete</Button>
                           <Button variant="outline-info mx-2">Edit</Button>
@@ -274,10 +290,9 @@ const Dashboard = () => {
                 <Accordion.Body
                   style={{ backgroundColor: "#f2f2f2", color: "black" }}
                 >
-                  {blogItems.map((item) =>
-                    !item.Published ? (
-                      <ListGroup key={item.Title}>
-                        {item.Title}
+                  {blogItems.map((item, i) =>
+                    !item.isPublished ? (
+                      <ListGroup key={i}>{item.title}
                         <Col className="d-flex justify-content-end">
                           <Button variant="outline-danger mx-2">Delete</Button>
                           <Button variant="outline-info mx-2">Edit</Button>
