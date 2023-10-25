@@ -60,7 +60,8 @@ const login = async (loginUser) => {
         headers: {
             "Content-Type": 'application/json'
         },
-        body: JSON.stringify(loginUser) //to send it in JSON format
+        body: JSON.stringify(loginUser), //to send it in JSON format
+        // mode: 'no-cors'
     });
     if(!result.ok){
         const message = `Error; try again ${result.status}`
@@ -115,5 +116,28 @@ const GetBlogItemsByUserId = async (UserId) => {
     return data;    
 }
 
+const updateBlogItems = async (blogItems) => {
+    let result = await fetch("http://localhost:5086/blog/UpdateBlogItems", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(blogItems)
+    });
+    if(!result.ok){
+        const message = `An error has occurred ${result.status}`;
+        throw new Error(message);
+    }
+    let data = await result.json();
+    console.log(data);
+    return data;
+}
 
-export { checkToken, createAccount, login, GetLoggedInUser, LoggedInData, AddBlogItems, sendData, GetBlogItems, GetBlogItemsByUserId }
+const getPublishedBlogItems = async () => {
+    let result = await fetch("http://localhost:5086/blog/GetPublishedItems");
+    let data = await result.json();
+    return data;
+}
+
+
+export { checkToken, createAccount, login, GetLoggedInUser, LoggedInData, AddBlogItems, sendData, GetBlogItems, GetBlogItemsByUserId, updateBlogItems, getPublishedBlogItems }

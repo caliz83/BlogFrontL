@@ -8,7 +8,6 @@
 //npm run dev, type 'o' to open it, then 'q' to exit it
 //to open in VS Code, type: code .
 
-import "./App.css";
 import BlogPage from "./components/BlogPage";
 import CreateAccount from "./components/CreateAccount";
 import Dashboard from "./components/Dashboard";
@@ -16,6 +15,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar";
+import "./App.css";
 
 function App() {
   return (
