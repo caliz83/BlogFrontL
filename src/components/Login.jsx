@@ -32,7 +32,7 @@ const Login = () => {
 
   return (
     <div>
-      <Form style={{width: "40", marginLeft: "33%", marginTop: "10%", backgroundColor: "lightseagreen", borderRadius: 5, padding: 80}}>
+      <Form style={{width: "40", marginLeft: "33%", marginTop: "10%", backgroundColor: "#b2ac88", borderRadius: 5, padding: 80}}>
       <h1 className='text-center'>Login</h1>
       <Form.Group className="mb-3" controlId="Username">
         <Form.Label>Username</Form.Label>
@@ -44,11 +44,11 @@ const Login = () => {
         <Form.Control type="password" placeholder="Password" onChange={handlePassword} />
       </Form.Group>
       
-      <Button variant="outline-primary" onClick={handleSubmit}>
+      <Button variant="outline-dark" onClick={handleSubmit}>
         Submit
       </Button>
       <p className='mt-3'>Don't have an account?</p>
-      <Button variant="outline-primary" onClick={() => navigate("/CreateAccount")}>
+      <Button variant="outline-dark" onClick={() => navigate("/CreateAccount")}>
         Create Account
       </Button>
     </Form>

@@ -80,7 +80,7 @@ const BlogPage = () => {
                           <Col style={{ border: "solid" }} className="d-flex justify-content-center" md={6}><p>{item.date}</p></Col>
                         </Row>
                       </Col>
-                      <Col style={{ border: "solid" }} className="d-flex justify-content-center" md={12}>Image</Col>
+                      <Col style={{ border: "solid" }} className="d-flex justify-content-center" md={12}>{item.image}</Col>
                     </Row>
                   </Col>
                   <Col style={{ border: "solid" }} className="d-flex justify-content-center" md={6}><p>{item.description}</p></Col>
@@ -98,7 +98,7 @@ const BlogPage = () => {
                         </Row>
                       </Col>
                     </Row>
-                    <Col style={{ border: "solid" }} className="d-flex justify-content-center" md={12}>Image</Col>
+                    <Col style={{ border: "solid" }} className="d-flex justify-content-center" md={12}>{item.image}</Col>
                   </Col>
                 </Row>
               )}

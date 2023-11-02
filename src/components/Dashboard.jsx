@@ -36,6 +36,8 @@ const Dashboard = () => {
         console.log(loggedInData);
         let userBlogItems = await GetBlogItemsByUserId(loggedInData.userId);
         setBlogItems(userBlogItems);
+        setUserId(loggedInData.userId);
+        setPublisherName(loggedInData.publisherName);
         console.log(userBlogItems);
         setIsLoading(false);
       }, 1000) //delayed for 1 second (in ms)
@@ -80,8 +82,8 @@ const Dashboard = () => {
     setIsPublished(isPublished);
   };
 
-  const [blogUserId, setBlogUserId ] = useState(0);
-  const [blogPublisherName, setBlogPublisherName] = useState("");
+  const [blogUserId, setUserId ] = useState(0);
+  const [blogPublisherName, setPublisherName] = useState("");
 
   //create our useStates to help us handle our forms
   const [blogTitle, setBlogTitle] = useState("");
@@ -90,8 +92,8 @@ const Dashboard = () => {
   const [blogCategory, setBlogCategory] = useState("");
   const [blogTags, setBlogTags] = useState("");
   const [blogId, setBlogId] = useState(0);
-  const [userId, setUserId] = useState(0);
-  const [publisherName, setPublisherName] = useState("");
+  //const [userId, setUserId] = useState(0);
+  //const [publisherName, setPublisherName] = useState("");
 
   const [blogItems, setBlogItems] = useState([
     // {
@@ -155,7 +157,7 @@ const Dashboard = () => {
     //let { publisherName, userId } = LoggedInData();
 
     const Published = {
-      Id: 0,
+      Id: blogId,
       UserId: blogUserId,
       PublisherName: blogPublisherName,
       Title: blogTitle,
@@ -260,7 +262,7 @@ const Dashboard = () => {
   return (
     <>
       <Container>
-        <Button className="me-3" variant="outline-light" onClick={(e) => handleShow(e, {id: 0, userId: blogUserId, publisherName: blogPublisherName, title: "", image: "", description: "", category: "", tag: "", isDeleted: false, isPublished: false})}>
+        <Button className="me-3" variant="outline-success" onClick={(e) => handleShow(e, {id: 0, userId: blogUserId, publisherName: blogPublisherName, title: "", image: "", description: "", category: "", tag: "", isDeleted: false, isPublished: false})}>
           Add Blog Item
         </Button>
         <Modal show={show} onHide={handleClose}>
@@ -336,7 +338,7 @@ const Dashboard = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Button variant="outline-light" onClick={handleShow}>
+        <Button variant="outline-success" onClick={handleShow}>
           Edit Blog Item
         </Button>{" "}
         <Row>

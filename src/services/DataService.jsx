@@ -88,7 +88,7 @@ const LoggedInData = () => {
 }
 
 const AddBlogItems = async (blogItems) => {
-    let result = await fetch('http://localhost:5086/blog/AddBlogItems', {
+    let result = await fetch("http://localhost:5086/blog/AddBlogItems", {
         method: "POST",
         headers: {
             "Content-Type": 'application/json'

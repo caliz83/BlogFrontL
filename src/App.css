@@ -1,9 +1,13 @@
-body {
+/* body {
   background-color: #8bb384;
   color: black;
-}
+} */
 
 /* .nav {
   color:gray !important;
   text-decoration: none;
 } */
+
+.nav {
+  color: olivedrab;
+}
