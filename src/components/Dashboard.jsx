@@ -157,7 +157,7 @@ const Dashboard = () => {
     //let { publisherName, userId } = LoggedInData();
 
     const Published = {
-      Id: blogId,
+      Id: 0,
       UserId: blogUserId,
       PublisherName: blogPublisherName,
       Title: blogTitle,
